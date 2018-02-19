@@ -22,8 +22,14 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 #Mechanize gem
 gem 'mechanize'
+#Facebook messenger
+gem 'facebook-messenger'
+#Figaro
+gem 'figaro'
 #Nokogiri
 gem 'nokogiri'
+#Faraday
+gem 'faraday'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
