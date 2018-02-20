@@ -5,7 +5,7 @@ include Facebook::Messenger
 Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
 Bot.on :message do |message|
-  id = message.sender["id"]
+  puts id = message.sender["id"]
   status = ''
 
   if Status.where(:sender => id).exists?
@@ -18,7 +18,7 @@ Bot.on :message do |message|
     Status.new(status: "questionDelivered", sender: id).save
     Bot.deliver({
       recipient: {
-        id: id
+        id: id #to be validated
       },
       message: {
         text: message.text
@@ -40,27 +40,27 @@ Bot.on :message do |message|
 
     when /Vieux-Montréal/i
       Status.new(status: "vieuxMontreal", sender: id).save
-      BookingController.new.service(id)
+      BookingController.new.tempLink(id, 'vieux')
 
     when /Place Ville-Marie/i
       Status.new(status: "villeMarie", sender: id).save
-      BookingController.new.service(id)
+      BookingController.new.tempLink(id, 'villeMarie')
 
     when /Quartier DIX30/i
       Status.new(status: "quartier", sender: id).save
-      BookingController.new.service(id)
+      BookingController.new.tempLink(id, 'quartier')
 
     when /Mile-End/i
       Status.new(status: "mileEnd", sender: id).save
-      BookingController.new.service(id)
+      BookingController.new.tempLink(id, 'mileEnd')
 
-    when /Rudsak (Ahuntsic)/i
+    when "Rudsak (Ahuntsic)"
       Status.new(status: "rudsak", sender: id).save
-      BookingController.new.service(id)
+      BookingController.new.tempLink(id, 'rudsak')
 
-    when /Academy (Pointe Saint-Charles)/i
+    when "Academy (Pointe Saint-Charles)"
       Status.new(status: "academy", sender: id).save
-      BookingController.new.service(id)
+      BookingController.new.tempLink(id, 'academy')
 
     else
       message.reply(

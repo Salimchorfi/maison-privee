@@ -89,4 +89,129 @@ include Facebook::Messenger
       }
     }, access_token: ENV['ACCESS_TOKEN'])
   end
+
+  def tempLink(id, location)
+    case location
+
+    when /vieux/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "There you go!",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://maisonprivee.appointy.com/default.aspx?_ga=1.219348953.1993957800.1476457930",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /villeMarie/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "There you go!",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://maisonpriveepvm.appointy.com/default.aspx",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /quartier/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "There you go!",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://maisonpriveedix30.appointy.com/default.aspx",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /mileEnd/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "There you go!",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://maisonpriveemileend.appointy.com/default.aspx",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /rudsak/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "There you go!",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://maisonpriveerudsak.appointy.com",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /academy/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "There you go!",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://maisonpriveeacademy.appointy.com",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+    end
+  end
 end
