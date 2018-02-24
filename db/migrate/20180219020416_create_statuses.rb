@@ -3,6 +3,7 @@ class CreateStatuses < ActiveRecord::Migration[5.0]
     create_table :statuses do |t|
       t.string :status
       t.string :sender
+      t.string :language
 
       t.timestamps
     end

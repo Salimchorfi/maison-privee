@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180219020416) do
   create_table "statuses", force: :cascade do |t|
     t.string   "status"
     t.string   "sender"
+    t.string   "language"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
