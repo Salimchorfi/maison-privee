@@ -6,10 +6,8 @@ Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
 Bot.on :message do |message|
   id = message.sender["id"]
-  status = ""
 
   if Status.where(:sender => id).exists?
-    puts status = Status.where(:sender => id).last.status
 
     if message.text == 'English' #defining language
       Status.new(status: "defineLanguage", sender: id, language: message.text).save
@@ -18,6 +16,7 @@ Bot.on :message do |message|
     end
 
     puts language = Status.where(:sender => id).last.language
+    puts status = Status.where(:sender => id).last.status
 
     if language == 'English' # -------------------------------------------
 
@@ -226,7 +225,7 @@ Bot.on :message do |message|
 
         when /Heure d'ouverture?/i
           Status.new(status: "hours", sender: id, language: 'Français').save
-          BookingController.new.location(id, "What location are you looking for?")
+          BookingController.new.location(id, "Pour quel emplacement?")
 
 
         else #main menu
