@@ -272,81 +272,193 @@ include Facebook::Messenger
 
     when /vieux/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM",
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
+      if language == 'English'
 
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: "Thursday/Friday: 11:00 AM - 9:00 PM",
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
 
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: "Saturday: 11:00 AM - 5:00 PM",
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Thursday/Friday: 11:00 AM - 9:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Saturday: 11:00 AM - 5:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      elsif language == 'Français'
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Mardi/Mercredi: 11:00 AM - 7:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Jeudi/Vendredi: 11:00 AM - 9:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Samedi: 11:00 AM - 5:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      end
 
     when /villeMarie/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: "Monday to Friday: 10:00 am - 7:00 PM",
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
+      if language == 'English'
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Monday to Friday: 10:00 am - 7:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      elsif language == 'Français'
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Lundi à Vendredi: 10:00 am - 7:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      end
 
     when /quartier/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM",
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
+      if language == 'English'
 
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: "Thursday/Friday: 11:00 AM - 9:00 PM",
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
 
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: "Saturday / Sunday: 11:00 AM - 5:00 PM",
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Thursday/Friday: 11:00 AM - 9:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Saturday/Sunday: 11:00 AM - 5:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      elsif language == 'Français'
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Mardi/Mercredi: 11:00 AM - 7:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Jeudi/Vendredi: 11:00 AM - 9:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Samedi/Dimanche: 11:00 AM - 5:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      end
 
     when /mileEnd/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
-      Bot.deliver({
+      if language == 'English'
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Thursday/Friday: 11:00 AM - 9:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Saturday: 11:00 AM - 5:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      elsif language == 'Français'
+
+        Bot.deliver({
         recipient: {
           id: id
         },
         message: {
-          text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM",
+          text: "Mardi/Mercredi: 11:00 AM - 7:00 PM",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -355,7 +467,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "Thursday/Friday: 11:00 AM - 9:00 PM",
+          text: "Jeudi/Vendredi: 11:00 AM - 9:00 PM",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -364,20 +476,37 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "Saturday: 11:00 AM - 5:00 PM",
+          text: "Samedi: 11:00 AM - 5:00 PM",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
+
+    end
 
     when /rudsak/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: "Tuesday to Saturday: 10:00 AM - 6:00 PM",
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
+      if language == 'English'
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Tuesday to Saturday: 10:00 AM - 6:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      elsif language == 'Français'
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Mardi à Samedi: 10:00 AM - 6:00 PM",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      end
 
     when /academy/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
@@ -425,5 +554,79 @@ include Facebook::Messenger
 
     end
 
+  end
+
+  def address(id, location)
+
+    case location
+
+    when /vieux/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://goo.gl/maps/uPFyeQ3FziD2",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /villeMarie/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://goo.gl/maps/NyTGC1ENzGt",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /quartier/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://goo.gl/maps/QZgedKbcvzt",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /mileEnd/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://goo.gl/maps/Lce9UWgHu4x",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /rudsak/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://goo.gl/maps/kDevaapuBaw",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /academy/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "https://goo.gl/maps/EskX8ewRn9w",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      end
   end
 end

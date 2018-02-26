@@ -35,11 +35,10 @@ Bot.on :message do |message|
       elsif status == 'opening'
         message.typing_on
         Status.new(status: "hours", sender: id, language: 'English').save
-        BookingController.new.location(id, "What location are you looking for?")
+        BookingController.new.location(id, "For which location?")
 
       elsif status == 'hours'
         message.typing_on
-        puts "hello"
         case message.text
 
         when /Vieux-Montréal/i
@@ -67,6 +66,35 @@ Bot.on :message do |message|
           BookingController.new.schedule(id, "academy", 'English')
         end
 
+      elsif status == 'address'
+        message.typing_on
+        case message.text
+
+        when /Vieux-Montréal/i
+          Status.new(status: "openingVieux", sender: id, language: 'English').save
+          BookingController.new.address(id, "vieux")
+
+        when /Place Ville-Marie/i
+          Status.new(status: "openingVilleMarie", sender: id, language: 'English').save
+          BookingController.new.address(id, "villeMarie")
+
+        when /Quartier DIX30/i
+          Status.new(status: "openingQuartier", sender: id, language: 'English').save
+          BookingController.new.address(id, "quartier")
+
+        when /Mile-End/i
+          Status.new(status: "openingMileEnd", sender: id, language: 'English').save
+          BookingController.new.address(id, "mileEnd")
+
+        when "Rudsak (Ahuntsic)"
+          Status.new(status: "openingRudsak", sender: id, language: 'English').save
+          BookingController.new.address(id, "rudsak")
+
+        when "Academy"
+          Status.new(status: "openingAcademy", sender: id, language: 'English').save
+          BookingController.new.address(id, "academy")
+        end
+
       else
         message.typing_on
         case message.text #first degree response
@@ -74,12 +102,16 @@ Bot.on :message do |message|
         when /Ask a question!/i
           Status.new(status: "question", sender: id, language: 'English').save
           message.reply(
-            text: 'You may ask whatever you want, a human will respond as soon as possible'
+            text: "You may ask whatever you want, we'll get back to you as soon as possible"
           )
 
-        when /Book a haircut!/i
+        when /Make a reservation!/i
           Status.new(status: "book", sender: id, language: 'English').save
           BookingController.new.location(id, "All right! You need to first chose a location:")
+
+        when /Find an address/i
+          Status.new(status: "address", sender: id, language: 'English').save
+          BookingController.new.location(id, "For which location?")
 
         when /Vieux-Montréal/i
           Status.new(status: "vieuxMontreal", sender: id, language: 'English').save
@@ -116,12 +148,17 @@ Bot.on :message do |message|
           quick_replies: [
             {
               content_type: 'text',
-              title: 'Book a haircut!',
+              title: 'Make a reservation!',
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
               title: 'Opening hours?',
+              payload: 'HARMLESS'
+            },
+            {
+              content_type: 'text',
+              title: 'Find an address',
               payload: 'HARMLESS'
             },
             {
@@ -153,11 +190,10 @@ Bot.on :message do |message|
       elsif status == 'opening'
         message.typing_on
         Status.new(status: "hours", sender: id, language: 'Français').save
-        BookingController.new.location(id, "Quelle emplacement recherches tu?")
+        BookingController.new.location(id, "Pour quel emplacement?")
 
       elsif status == 'hours'
         message.typing_on
-        puts "hello"
         case message.text
 
         when /Vieux-Montréal/i
@@ -185,6 +221,35 @@ Bot.on :message do |message|
           BookingController.new.schedule(id, "academy", 'Français')
         end
 
+      elsif status == 'address'
+        message.typing_on
+        case message.text
+
+        when /Vieux-Montréal/i
+          Status.new(status: "openingVieux", sender: id, language: 'Français').save
+          BookingController.new.address(id, "vieux")
+
+        when /Place Ville-Marie/i
+          Status.new(status: "openingVilleMarie", sender: id, language: 'Français').save
+          BookingController.new.address(id, "villeMarie")
+
+        when /Quartier DIX30/i
+          Status.new(status: "openingQuartier", sender: id, language: 'Français').save
+          BookingController.new.address(id, "quartier")
+
+        when /Mile-End/i
+          Status.new(status: "openingMileEnd", sender: id, language: 'Français').save
+          BookingController.new.address(id, "mileEnd")
+
+        when "Rudsak (Ahuntsic)"
+          Status.new(status: "openingRudsak", sender: id, language: 'Français').save
+          BookingController.new.address(id, "rudsak")
+
+        when "Academy"
+          Status.new(status: "openingAcademy", sender: id, language: 'Français').save
+          BookingController.new.address(id, "academy")
+        end
+
       else
         message.typing_on
         case message.text #first degree response
@@ -192,12 +257,16 @@ Bot.on :message do |message|
         when /Pauser une question!/i
           Status.new(status: "question", sender: id, language: 'Français').save
           message.reply(
-            text: 'Pauses ta question, un humain te répondra dès que possible'
+            text: 'Pauses ta question, nous te reviendrons dès que possible'
           )
 
-        when /Rendez-vous!/i
+        when /Réserver une chaise!/i
           Status.new(status: "book", sender: id, language: 'Français').save
           BookingController.new.location(id, "Parfait! Tu dois choisir un emplacement:")
+
+        when /Trouver une adresse/i
+          Status.new(status: "address", sender: id, language: 'Français').save
+          BookingController.new.location(id, "Pour quel emplacement?")
 
         when /Vieux-Montréal/i
           Status.new(status: "vieuxMontreal", sender: id, language: 'Français').save
@@ -234,12 +303,17 @@ Bot.on :message do |message|
           quick_replies: [
             {
               content_type: 'text',
-              title: 'Rendez-vous!',
+              title: 'Réserver une chaise!',
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
               title: "Heure d'ouverture?",
+              payload: 'HARMLESS'
+            },
+            {
+              content_type: 'text',
+              title: 'Trouver une adresse',
               payload: 'HARMLESS'
             },
             {
