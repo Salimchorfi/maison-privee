@@ -4,9 +4,9 @@ namespace :db do
 
   task :fillForm => :environment do
 
-    # require 'mechanize'
-    # require 'nokogiri'
-    # require 'open-uri'
+    require 'mechanize'
+    require 'nokogiri'
+    require 'open-uri'
 
     # artists = []
     # locations = []
@@ -41,12 +41,6 @@ namespace :db do
 
     #   #Artist.new(name: artist.strip, location: location.strip)
     # end
-
-    if Status.where(:sender => "salimchorfi").exists?
-      p Status.where(:sender => "salimchorfi")
-    else
-      p "not"
-    end
 
 
 
