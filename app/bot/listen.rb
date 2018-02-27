@@ -254,10 +254,10 @@ Bot.on :message do |message|
         message.typing_on
         case message.text #first degree response
 
-        when /Pauser une question!/i
+        when /Poser une question!/i
           Status.new(status: "question", sender: id, language: 'Français').save
           message.reply(
-            text: 'Pauses ta question, nous te reviendrons dès que possible'
+            text: 'Poses ta question, nous te reviendrons dès que possible'
           )
 
         when /Réserver une chaise!/i
@@ -318,7 +318,7 @@ Bot.on :message do |message|
             },
             {
               content_type: 'text',
-              title: 'Pauser une question!',
+              title: 'Poser une question!',
               payload: 'HARMLESS'
             }
           ]
