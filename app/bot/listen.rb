@@ -8,21 +8,22 @@ Bot.on :message do |message|
   id = message.sender["id"]
 
   if Status.where(:sender => id).exists?
+    user = Status.where(:sender => id)
 
     if message.text == 'English' #defining language
-      Status.new(status: "defineLanguage", sender: id, language: message.text).save
+      user.update(status: "defineLanguage", language: "English")
     elsif message.text == 'Français'
-      Status.new(status: "defineLanguage", sender: id, language: message.text).save
+      user.update(status: "defineLanguage", language: "Français")
     end
 
-    puts language = Status.where(:sender => id).last.language
-    puts status = Status.where(:sender => id).last.status
+    language = Status.where(:sender => id).language
+    status = Status.where(:sender => id).status
 
     if language == 'English' # -------------------------------------------
 
       if status == 'question'
         message.typing_on
-        Status.new(status: "questionDelivered", sender: id, language: 'English').save
+        user.update(status: "questionDelivered", language: "English")
         Bot.deliver({
           recipient: {
             id: id #to be validated
@@ -34,7 +35,7 @@ Bot.on :message do |message|
 
       elsif status == 'opening'
         message.typing_on
-        Status.new(status: "hours", sender: id, language: 'English').save
+        user.update(status: "hours", language: "English")
         BookingController.new.location(id, "For which location?")
 
       elsif status == 'hours'
@@ -42,27 +43,27 @@ Bot.on :message do |message|
         case message.text
 
         when /Vieux-Montréal/i
-          Status.new(status: "openingVieux", sender: id, language: 'English').save
+          user.update(status: "openingVieux", language: "English")
           BookingController.new.schedule(id, "vieux", 'English')
 
         when /Place Ville-Marie/i
-          Status.new(status: "openingVilleMarie", sender: id, language: 'English').save
+          user.update(status: "openingVilleMarie", language: "English")
           BookingController.new.schedule(id, "villeMarie", 'English')
 
         when /Quartier DIX30/i
-          Status.new(status: "openingQuartier", sender: id, language: 'English').save
+          user.update(status: "openingQuartier", language: "English")
           BookingController.new.schedule(id, "quartier", 'English')
 
         when /Mile-End/i
-          Status.new(status: "openingMileEnd", sender: id, language: 'English').save
+          user.update(status: "openingMileEnd", language: "English")
           BookingController.new.schedule(id, "mileEnd", 'English')
 
         when "Rudsak (Ahuntsic)"
-          Status.new(status: "openingRudsak", sender: id, language: 'English').save
+          user.update(status: "openingRudsak", language: "English")
           BookingController.new.schedule(id, "rudsak", 'English')
 
         when "Academy"
-          Status.new(status: "openingAcademy", sender: id, language: 'English').save
+          user.update(status: "openingAcademy", language: "English")
           BookingController.new.schedule(id, "academy", 'English')
         end
 
@@ -71,27 +72,27 @@ Bot.on :message do |message|
         case message.text
 
         when /Vieux-Montréal/i
-          Status.new(status: "openingVieux", sender: id, language: 'English').save
+          user.update(status: "openingVieux", language: "English")
           BookingController.new.address(id, "vieux")
 
         when /Place Ville-Marie/i
-          Status.new(status: "openingVilleMarie", sender: id, language: 'English').save
+          user.update(status: "openingVilleMarie", language: "English")
           BookingController.new.address(id, "villeMarie")
 
         when /Quartier DIX30/i
-          Status.new(status: "openingQuartier", sender: id, language: 'English').save
+          user.update(status: "openingQuartier", language: "English")
           BookingController.new.address(id, "quartier")
 
         when /Mile-End/i
-          Status.new(status: "openingMileEnd", sender: id, language: 'English').save
+          user.update(status: "openingMileEnd", language: "English")
           BookingController.new.address(id, "mileEnd")
 
         when "Rudsak (Ahuntsic)"
-          Status.new(status: "openingRudsak", sender: id, language: 'English').save
+          user.update(status: "openingRudsak", language: "English")
           BookingController.new.address(id, "rudsak")
 
         when "Academy"
-          Status.new(status: "openingAcademy", sender: id, language: 'English').save
+          user.update(status: "openingAcademy", language: "English")
           BookingController.new.address(id, "academy")
         end
 
@@ -100,45 +101,45 @@ Bot.on :message do |message|
         case message.text #first degree response
 
         when /Ask a question!/i
-          Status.new(status: "question", sender: id, language: 'English').save
+          user.update(status: "question", language: "English")
           message.reply(
             text: "You may ask whatever you want, we'll get back to you as soon as possible"
           )
 
         when /Make a reservation!/i
-          Status.new(status: "book", sender: id, language: 'English').save
+          user.update(status: "book", language: "English")
           BookingController.new.location(id, "All right! You need to first chose a location:")
 
         when /Find an address/i
-          Status.new(status: "address", sender: id, language: 'English').save
+          user.update(status: "address", language: "English")
           BookingController.new.location(id, "For which location?")
 
         when /Vieux-Montréal/i
-          Status.new(status: "vieuxMontreal", sender: id, language: 'English').save
+          user.update(status: "vieuxMontreal", language: "English")
           BookingController.new.tempLink(id, 'vieux', 'English', 'There you go!')
 
         when /Place Ville-Marie/i
-          Status.new(status: "villeMarie", sender: id, language: 'English').save
+          user.update(status: "villeMarie", language: "English")
           BookingController.new.tempLink(id, 'villeMarie', 'English', 'There you go!')
 
         when /Quartier DIX30/i
-          Status.new(status: "quartier", sender: id, language: 'English').save
+          user.update(status: "quartier", language: "English")
           BookingController.new.tempLink(id, 'quartier', 'English', 'There you go!')
 
         when /Mile-End/i
-          Status.new(status: "mileEnd", sender: id, language: 'English').save
+          user.update(status: "mileEnd", language: "English")
           BookingController.new.tempLink(id, 'mileEnd', 'English', 'There you go!')
 
         when "Rudsak (Ahuntsic)"
-          Status.new(status: "rudsak", sender: id, language: 'English').save
+          user.update(status: "rudsak", language: "English")
           BookingController.new.tempLink(id, 'rudsak', 'English', 'There you go!')
 
         when "Academy"
-          Status.new(status: "academy", sender: id, language: 'English').save
+          user.update(status: "academy", language: "English")
           BookingController.new.tempLink(id, 'academy', 'English', 'There you go!')
 
         when /Opening hours?/i
-          Status.new(status: "hours", sender: id, language: 'English').save
+          user.update(status: "hours", language: "English")
           BookingController.new.location(id, "What location are you looking for?")
 
 
@@ -177,7 +178,7 @@ Bot.on :message do |message|
 
       if status == 'question'
         message.typing_on
-        Status.new(status: "questionDelivered", sender: id, language: 'Français').save
+        user.update(status: "questionDelivered", language: "Français")
         Bot.deliver({
           recipient: {
             id: id #to be validated
@@ -189,7 +190,7 @@ Bot.on :message do |message|
 
       elsif status == 'opening'
         message.typing_on
-        Status.new(status: "hours", sender: id, language: 'Français').save
+        user.update(status: "hours", language: "Français")
         BookingController.new.location(id, "Pour quel emplacement?")
 
       elsif status == 'hours'
@@ -197,27 +198,27 @@ Bot.on :message do |message|
         case message.text
 
         when /Vieux-Montréal/i
-          Status.new(status: "openingVieux", sender: id, language: 'Français').save
+          user.update(status: "openingVieux", language: "Français")
           BookingController.new.schedule(id, "vieux", 'Français')
 
         when /Place Ville-Marie/i
-          Status.new(status: "openingVilleMarie", sender: id, language: 'Français').save
+          user.update(status: "openingVilleMarie", language: "Français")
           BookingController.new.schedule(id, "villeMarie", 'Français')
 
         when /Quartier DIX30/i
-          Status.new(status: "openingQuartier", sender: id, language: 'Français').save
+          user.update(status: "openingQuartier", language: "Français")
           BookingController.new.schedule(id, "quartier", 'Français')
 
         when /Mile-End/i
-          Status.new(status: "openingMileEnd", sender: id, language: 'Français').save
+          user.update(status: "openingMileEnd", language: "Français")
           BookingController.new.schedule(id, "mileEnd", 'Français')
 
         when "Rudsak (Ahuntsic)"
-          Status.new(status: "openingRudsak", sender: id, language: 'Français').save
+          user.update(status: "openingRudsak", language: "Français")
           BookingController.new.schedule(id, "rudsak", 'Français')
 
         when "Academy"
-          Status.new(status: "openingAcademy", sender: id, language: 'Français').save
+          user.update(status: "openingAcademy", language: "Français")
           BookingController.new.schedule(id, "academy", 'Français')
         end
 
@@ -226,27 +227,27 @@ Bot.on :message do |message|
         case message.text
 
         when /Vieux-Montréal/i
-          Status.new(status: "openingVieux", sender: id, language: 'Français').save
+          user.update(status: "openingVieux", language: "Français")
           BookingController.new.address(id, "vieux")
 
         when /Place Ville-Marie/i
-          Status.new(status: "openingVilleMarie", sender: id, language: 'Français').save
+          user.update(status: "openingVilleMarie", language: "Français")
           BookingController.new.address(id, "villeMarie")
 
         when /Quartier DIX30/i
-          Status.new(status: "openingQuartier", sender: id, language: 'Français').save
+          user.update(status: "openingQuartier", language: "Français")
           BookingController.new.address(id, "quartier")
 
         when /Mile-End/i
-          Status.new(status: "openingMileEnd", sender: id, language: 'Français').save
+          user.update(status: "openingMileEnd", language: "Français")
           BookingController.new.address(id, "mileEnd")
 
         when "Rudsak (Ahuntsic)"
-          Status.new(status: "openingRudsak", sender: id, language: 'Français').save
+          user.update(status: "openingRudsak", language: "Français")
           BookingController.new.address(id, "rudsak")
 
         when "Academy"
-          Status.new(status: "openingAcademy", sender: id, language: 'Français').save
+          user.update(status: "openingAcademy", language: "Français")
           BookingController.new.address(id, "academy")
         end
 
@@ -255,45 +256,45 @@ Bot.on :message do |message|
         case message.text #first degree response
 
         when /Poser une question!/i
-          Status.new(status: "question", sender: id, language: 'Français').save
+          user.update(status: "question", language: "Français")
           message.reply(
             text: 'Poses ta question, nous te reviendrons dès que possible'
           )
 
         when /Réserver une chaise!/i
-          Status.new(status: "book", sender: id, language: 'Français').save
+          user.update(status: "book", language: "Français")
           BookingController.new.location(id, "Parfait! Tu dois choisir un emplacement:")
 
         when /Trouver une adresse/i
-          Status.new(status: "address", sender: id, language: 'Français').save
+          user.update(status: "address", language: "Français")
           BookingController.new.location(id, "Pour quel emplacement?")
 
         when /Vieux-Montréal/i
-          Status.new(status: "vieuxMontreal", sender: id, language: 'Français').save
+          user.update(status: "vieuxMontreal", language: "Français")
           BookingController.new.tempLink(id, 'vieux', 'Français', 'Voilà!')
 
         when /Place Ville-Marie/i
-          Status.new(status: "villeMarie", sender: id, language: 'Français').save
+          user.update(status: "villeMarie", language: "Français")
           BookingController.new.tempLink(id, 'villeMarie', 'Français', 'Voilà!')
 
         when /Quartier DIX30/i
-          Status.new(status: "quartier", sender: id, language: 'Français').save
+          user.update(status: "quartier", language: "Français")
           BookingController.new.tempLink(id, 'quartier', 'Français', 'Voilà!')
 
         when /Mile-End/i
-          Status.new(status: "mileEnd", sender: id, language: 'Français').save
+          user.update(status: "mileEnd", language: "Français")
           BookingController.new.tempLink(id, 'mileEnd', 'Français', 'Voilà!')
 
         when "Rudsak (Ahuntsic)"
-          Status.new(status: "rudsak", sender: id, language: 'Français').save
+          user.update(status: "rudsak", language: "Français")
           BookingController.new.tempLink(id, 'rudsak', 'Français', 'Voilà!')
 
         when "Academy"
-          Status.new(status: "academy", sender: id, language: 'Français').save
+          user.update(status: "academy", language: "Français")
           BookingController.new.tempLink(id, 'academy', 'Français', 'Voilà!')
 
         when /Heure d'ouverture?/i
-          Status.new(status: "hours", sender: id, language: 'Français').save
+          user.update(status: "hours", language: "Français")
           BookingController.new.location(id, "Pour quel emplacement?")
 
 
@@ -303,22 +304,22 @@ Bot.on :message do |message|
           quick_replies: [
             {
               content_type: 'text',
-              title: 'Réserver une chaise!',
+              title: 'Réserver une chaise 💺',
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
-              title: "Heure d'ouverture?",
+              title: "Heure d'ouverture 🕓",
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
-              title: 'Trouver une adresse',
+              title: 'Trouver une adresse 🌎',
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
-              title: 'Poser une question!',
+              title: 'Poser une question 🆘',
               payload: 'HARMLESS'
             }
           ]
@@ -331,9 +332,9 @@ Bot.on :message do |message|
     end
 
   else #language menu ----------------------------------------------------
-    Status.new(status: "enrollement", sender: id).save
+    Status.new(status: "enrollement", sender: id, language: "notDefine").save
     message.reply(
-        text: 'Welcome to Maison Privée',
+        text: 'Welcome to Maison Privée 🏠💈',
         quick_replies: [
           {
             content_type: 'text',
