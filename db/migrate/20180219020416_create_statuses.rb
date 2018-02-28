@@ -4,6 +4,7 @@ class CreateStatuses < ActiveRecord::Migration[5.0]
       t.string :status
       t.string :sender
       t.string :language
+      t.integer :count
 
       t.timestamps
     end
