@@ -16,8 +16,8 @@ Bot.on :message do |message|
       user.update(status: "defineLanguage", language: "Français")
     end
 
-    language = user.language
-    status = user.status
+    language = Status.find_by(sender: id).language
+    status = Status.find_by(sender: id).status
 
     if language == 'English' # -------------------------------------------
 
