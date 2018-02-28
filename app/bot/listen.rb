@@ -100,14 +100,14 @@ Bot.on :message do |message|
         message.typing_on
         case message.text #first degree response
 
-        when /Ask a question!/i
+        when /Ask a question/i
           user.update(status: "question", language: "English")
           user.increment(:count, by = 1)
           message.reply(
             text: "You may ask whatever you want, we'll get back to you as soon as possible"
           )
 
-        when /Make a reservation!/i
+        when /Book a chair!/i
           user.update(status: "book", language: "English")
           user.increment(:count, by = 1)
           BookingController.new.location(id, "All right! You need to first chose a location:")
@@ -119,27 +119,27 @@ Bot.on :message do |message|
 
         when /Vieux-Montréal/i
           user.update(status: "vieuxMontreal", language: "English")
-          BookingController.new.tempLink(id, 'vieux', 'English', 'There you go!')
+          BookingController.new.tempLink(id, 'vieux', 'English', 'There you go 💈💺!')
 
         when /Place Ville-Marie/i
           user.update(status: "villeMarie", language: "English")
-          BookingController.new.tempLink(id, 'villeMarie', 'English', 'There you go!')
+          BookingController.new.tempLink(id, 'villeMarie', 'English', 'There you go 💈💺!')
 
         when /Quartier DIX30/i
           user.update(status: "quartier", language: "English")
-          BookingController.new.tempLink(id, 'quartier', 'English', 'There you go!')
+          BookingController.new.tempLink(id, 'quartier', 'English', 'There you go 💈💺!')
 
         when /Mile-End/i
           user.update(status: "mileEnd", language: "English")
-          BookingController.new.tempLink(id, 'mileEnd', 'English', 'There you go!')
+          BookingController.new.tempLink(id, 'mileEnd', 'English', 'There you go 💈💺!')
 
         when "Rudsak (Ahuntsic)"
           user.update(status: "rudsak", language: "English")
-          BookingController.new.tempLink(id, 'rudsak', 'English', 'There you go!')
+          BookingController.new.tempLink(id, 'rudsak', 'English', 'There you go 💈💺!')
 
         when "Academy"
           user.update(status: "academy", language: "English")
-          BookingController.new.tempLink(id, 'academy', 'English', 'There you go!')
+          BookingController.new.tempLink(id, 'academy', 'English', 'There you go 💈💺!')
 
         when /Opening hours?/i
           user.update(status: "hours", language: "English")
@@ -153,22 +153,22 @@ Bot.on :message do |message|
           quick_replies: [
             {
               content_type: 'text',
-              title: 'Book a chair 💺',
+              title: 'Book a chair!',
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
-              title: 'Opening hours 🕓',
+              title: 'Opening hours?',
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
-              title: 'Find an address 🌎',
+              title: 'Find an address',
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
-              title: 'Ask a question 🆘',
+              title: 'Ask a question',
               payload: 'HARMLESS'
             }
           ]
@@ -259,7 +259,7 @@ Bot.on :message do |message|
         message.typing_on
         case message.text #first degree response
 
-        when /Poser une question!/i
+        when /Poser une question/i
           user.update(status: "question", language: "Français")
           user.increment(:count, by = 1)
           message.reply(
@@ -278,27 +278,27 @@ Bot.on :message do |message|
 
         when /Vieux-Montréal/i
           user.update(status: "vieuxMontreal", language: "Français")
-          BookingController.new.tempLink(id, 'vieux', 'Français', 'Voilà!')
+          BookingController.new.tempLink(id, 'vieux', 'Français', 'Voilà! 💈💺')
 
         when /Place Ville-Marie/i
           user.update(status: "villeMarie", language: "Français")
-          BookingController.new.tempLink(id, 'villeMarie', 'Français', 'Voilà!')
+          BookingController.new.tempLink(id, 'villeMarie', 'Français', 'Voilà! 💈💺')
 
         when /Quartier DIX30/i
           user.update(status: "quartier", language: "Français")
-          BookingController.new.tempLink(id, 'quartier', 'Français', 'Voilà!')
+          BookingController.new.tempLink(id, 'quartier', 'Français', 'Voilà! 💈💺')
 
         when /Mile-End/i
           user.update(status: "mileEnd", language: "Français")
-          BookingController.new.tempLink(id, 'mileEnd', 'Français', 'Voilà!')
+          BookingController.new.tempLink(id, 'mileEnd', 'Français', 'Voilà! 💈💺')
 
         when "Rudsak (Ahuntsic)"
           user.update(status: "rudsak", language: "Français")
-          BookingController.new.tempLink(id, 'rudsak', 'Français', 'Voilà!')
+          BookingController.new.tempLink(id, 'rudsak', 'Français', 'Voilà! 💈💺')
 
         when "Academy"
           user.update(status: "academy", language: "Français")
-          BookingController.new.tempLink(id, 'academy', 'Français', 'Voilà!')
+          BookingController.new.tempLink(id, 'academy', 'Français', 'Voilà! 💈💺                                                                                                                                                                                                                                                                                                                                                                                                                          ')
 
         when /Heure d'ouverture?/i
           user.update(status: "hours", language: "Français")
@@ -312,22 +312,22 @@ Bot.on :message do |message|
           quick_replies: [
             {
               content_type: 'text',
-              title: 'Réserver une chaise 💺',
+              title: 'Réserver une chaise!',
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
-              title: "Heure d'ouverture 🕓",
+              title: "Heure d'ouverture?",
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
-              title: 'Trouver une adresse 🌎',
+              title: 'Trouver une adresse',
               payload: 'HARMLESS'
             },
             {
               content_type: 'text',
-              title: 'Poser une question 🆘',
+              title: 'Poser une question',
               payload: 'HARMLESS'
             }
           ]

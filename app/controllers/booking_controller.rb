@@ -279,7 +279,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM",
+            text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -288,7 +288,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Thursday/Friday: 11:00 AM - 9:00 PM",
+            text: "Thursday/Friday: 11:00 AM - 9:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -297,7 +297,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Saturday: 11:00 AM - 5:00 PM",
+            text: "Saturday: 11:00 AM - 5:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -308,7 +308,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Mardi/Mercredi: 11:00 AM - 7:00 PM",
+            text: "Mardi/Mercredi: 11:00 AM - 7:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -317,7 +317,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Jeudi/Vendredi: 11:00 AM - 9:00 PM",
+            text: "Jeudi/Vendredi: 11:00 AM - 9:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -326,7 +326,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Samedi: 11:00 AM - 5:00 PM",
+            text: "Samedi: 11:00 AM - 5:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -341,7 +341,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Monday to Friday: 10:00 am - 7:00 PM",
+            text: "Monday to Friday: 10:00 am - 7:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -352,7 +352,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Lundi à Vendredi: 10:00 am - 7:00 PM",
+            text: "Lundi à Vendredi: 10:00 am - 7:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -367,7 +367,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM",
+            text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -376,7 +376,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Thursday/Friday: 11:00 AM - 9:00 PM",
+            text: "Thursday/Friday: 11:00 AM - 9:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -385,7 +385,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Saturday/Sunday: 11:00 AM - 5:00 PM",
+            text: "Saturday/Sunday: 11:00 AM - 5:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -396,7 +396,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Mardi/Mercredi: 11:00 AM - 7:00 PM",
+            text: "Mardi/Mercredi: 11:00 AM - 7:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -405,7 +405,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Jeudi/Vendredi: 11:00 AM - 9:00 PM",
+            text: "Jeudi/Vendredi: 11:00 AM - 9:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -414,7 +414,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Samedi/Dimanche: 11:00 AM - 5:00 PM",
+            text: "Samedi/Dimanche: 11:00 AM - 5:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -429,7 +429,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM",
+            text: "Tuesday/Wednesday: 11:00 AM - 7:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -438,7 +438,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Thursday/Friday: 11:00 AM - 9:00 PM",
+            text: "Thursday/Friday: 11:00 AM - 9:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -447,7 +447,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Saturday: 11:00 AM - 5:00 PM",
+            text: "Saturday: 11:00 AM - 5:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -458,7 +458,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "Mardi/Mercredi: 11:00 AM - 7:00 PM",
+          text: "Mardi/Mercredi: 11:00 AM - 7:00 PM 🕓",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -467,7 +467,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "Jeudi/Vendredi: 11:00 AM - 9:00 PM",
+          text: "Jeudi/Vendredi: 11:00 AM - 9:00 PM 🕓",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -476,7 +476,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "Samedi: 11:00 AM - 5:00 PM",
+          text: "Samedi: 11:00 AM - 5:00 PM 🕓",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -491,7 +491,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Tuesday to Saturday: 10:00 AM - 6:00 PM",
+            text: "Tuesday to Saturday: 10:00 AM - 6:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -502,7 +502,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "Mardi à Samedi: 10:00 AM - 6:00 PM",
+            text: "Mardi à Samedi: 10:00 AM - 6:00 PM 🕓",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -567,7 +567,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "https://goo.gl/maps/uPFyeQ3FziD2",
+          text: "https://goo.gl/maps/uPFyeQ3FziD2 🌎",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -578,7 +578,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "https://goo.gl/maps/NyTGC1ENzGt",
+          text: "https://goo.gl/maps/NyTGC1ENzGt 🌎",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -589,7 +589,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "https://goo.gl/maps/QZgedKbcvzt",
+          text: "https://goo.gl/maps/QZgedKbcvzt 🌎",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -600,7 +600,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "https://goo.gl/maps/Lce9UWgHu4x",
+          text: "https://goo.gl/maps/Lce9UWgHu4x 🌎",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -611,7 +611,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "https://goo.gl/maps/kDevaapuBaw",
+          text: "https://goo.gl/maps/kDevaapuBaw 🌎",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -623,7 +623,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "https://goo.gl/maps/EskX8ewRn9w",
+            text: "https://goo.gl/maps/EskX8ewRn9w 🌎",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
