@@ -102,19 +102,19 @@ Bot.on :message do |message|
 
         when /Ask a question/i
           user.update(status: "question", language: "English")
-          user.increment(:count, by = 1)
+          Status.find_by(sender: id).increment(:count, by = 1).save
           message.reply(
             text: "You may ask whatever you want, we'll get back to you as soon as possible"
           )
 
         when /Book a chair!/i
           user.update(status: "book", language: "English")
-          user.increment(:count, by = 1)
+          Status.find_by(sender: id).increment(:count, by = 1).save
           BookingController.new.location(id, "All right! You need to first chose a location:")
 
         when /Find an address/i
           user.update(status: "address", language: "English")
-          user.increment(:count, by = 1)
+          Status.find_by(sender: id).increment(:count, by = 1).save
           BookingController.new.location(id, "For which location?")
 
         when /Vieux-Montréal/i
@@ -143,7 +143,7 @@ Bot.on :message do |message|
 
         when /Opening hours?/i
           user.update(status: "hours", language: "English")
-          user.increment(:count, by = 1)
+          Status.find_by(sender: id).increment(:count, by = 1).save
           BookingController.new.location(id, "What location are you looking for?")
 
 
@@ -261,19 +261,19 @@ Bot.on :message do |message|
 
         when /Poser une question/i
           user.update(status: "question", language: "Français")
-          user.increment(:count, by = 1)
+          Status.find_by(sender: id).increment(:count, by = 1).save
           message.reply(
             text: 'Poses ta question, nous te reviendrons dès que possible'
           )
 
         when /Réserver une chaise!/i
           user.update(status: "book", language: "Français")
-          user.increment(:count, by = 1)
+          Status.find_by(sender: id).increment(:count, by = 1).save
           BookingController.new.location(id, "Parfait! Tu dois choisir un emplacement:")
 
         when /Trouver une adresse/i
           user.update(status: "address", language: "Français")
-          user.increment(:count, by = 1)
+          Status.find_by(sender: id).increment(:count, by = 1).save
           BookingController.new.location(id, "Pour quel emplacement?")
 
         when /Vieux-Montréal/i
@@ -302,7 +302,7 @@ Bot.on :message do |message|
 
         when /Heure d'ouverture?/i
           user.update(status: "hours", language: "Français")
-          user.increment(:count, by = 1)
+          Status.find_by(sender: id).increment(:count, by = 1).save
           BookingController.new.location(id, "Pour quel emplacement?")
 
 
