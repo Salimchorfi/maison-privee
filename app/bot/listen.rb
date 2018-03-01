@@ -6,6 +6,7 @@ Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
 Bot.on :message do |message|
   id = message.sender["id"]
+  first_name = BookingController.new.name(id)[0]
 
   if Status.where(:sender => id).exists?
     user = Status.where(:sender => id)
@@ -149,7 +150,7 @@ Bot.on :message do |message|
 
         else #main menu
           message.reply(
-          text: 'Hello, what are you looking for?',
+          text: "Hi #{first_name}, what are you looking for?",
           quick_replies: [
             {
               content_type: 'text',
@@ -308,7 +309,7 @@ Bot.on :message do |message|
 
         else #main menu
           message.reply(
-          text: "Salut, qu'est ce que tu recherches?",
+          text: "Salut #{first_name}, qu'est ce que tu recherches?",
           quick_replies: [
             {
               content_type: 'text',

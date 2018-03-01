@@ -1,6 +1,16 @@
 class BookingController < ApplicationController
 require "facebook/messenger"
+require 'nokogiri'
+require 'open-uri'
+require 'json'
 include Facebook::Messenger
+
+  def name(id)
+    url = "https://graph.facebook.com/v2.6/#{id}?fields=first_name,last_name,profile_pic&access_token=#{ENV["ACCESS_TOKEN"]}"
+    user_serialized = open(url).read
+    user = JSON.parse(user_serialized)
+    return [user["first_name"], user["last_name"]]
+  end
 
   def location(id, text)
     Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
