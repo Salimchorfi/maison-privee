@@ -12,12 +12,15 @@
 
 ActiveRecord::Schema.define(version: 20180219020416) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "artists", force: :cascade do |t|
     t.string   "name"
     t.integer  "location_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["location_id"], name: "index_artists_on_location_id"
+    t.index ["location_id"], name: "index_artists_on_location_id", using: :btree
   end
 
   create_table "bookings", force: :cascade do |t|
@@ -40,8 +43,11 @@ ActiveRecord::Schema.define(version: 20180219020416) do
     t.string   "status"
     t.string   "sender"
     t.string   "language"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "count"
+    t.string   "tags",       default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
+  add_foreign_key "artists", "locations"
 end

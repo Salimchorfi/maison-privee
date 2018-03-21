@@ -212,6 +212,7 @@ DEPENDENCIES
   facebook-messenger
   faraday
   figaro
+  i18n
   jbuilder (~> 2.5)
   jquery-rails
   koala

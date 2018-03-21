@@ -1,12 +1,16 @@
 require "facebook/messenger"
 include Facebook::Messenger
 
-
+Satus = ['question', 'hours', 'address', 'book']
 Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
 Bot.on :message do |message|
   id = message.sender["id"]
   first_name = BookingController.new.name(id)[0]
+
+  Status.where(:sender => id).update(tags: []) #reset tags
+  cleanArray = TextController.new.cleanString(message.text)
+  TextController.new.tags(cleanArray, id)
 
   if Status.where(:sender => id).exists?
     user = Status.where(:sender => id)
@@ -19,6 +23,7 @@ Bot.on :message do |message|
 
     language = Status.find_by(sender: id).language
     status = Status.find_by(sender: id).status
+    tags = Status.find_by(sender: id).tags
 
     if language == 'English' # -------------------------------------------
 
@@ -34,10 +39,34 @@ Bot.on :message do |message|
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
-      elsif status == 'opening'
+      elsif status == 'book'
         message.typing_on
-        user.update(status: "hours", language: "English")
-        BookingController.new.location(id, "For which location?")
+        case message.text
+
+        when /Vieux-Montréal/i
+          user.update(status: "bookVieux", language: "English")
+          BookingController.new.tempLink(id, 'vieux', 'English', 'There you go 💈💺!')
+
+        when /Place Ville-Marie/i
+          user.update(status: "bookVilleMarie", language: "English")
+          BookingController.new.tempLink(id, 'villeMarie', 'English', 'There you go 💈💺!')
+
+        when /Quartier DIX30/i
+          user.update(status: "bookQuartier", language: "English")
+          BookingController.new.tempLink(id, 'quartier', 'English', 'There you go 💈💺!')
+
+        when /Mile-End/i
+          user.update(status: "bookMileEnd", language: "English")
+          BookingController.new.tempLink(id, 'mileEnd', 'English', 'There you go 💈💺!')
+
+        when "Rudsak (Ahuntsic)"
+          user.update(status: "bookRudsak", language: "English")
+          BookingController.new.tempLink(id, 'rudsak', 'English', 'There you go 💈💺!')
+
+        when "Academy"
+          user.update(status: "bookAcademy", language: "English")
+          BookingController.new.tempLink(id, 'academy', 'English', 'There you go 💈💺!')
+        end
 
       elsif status == 'hours'
         message.typing_on
@@ -73,27 +102,27 @@ Bot.on :message do |message|
         case message.text
 
         when /Vieux-Montréal/i
-          user.update(status: "openingVieux", language: "English")
+          user.update(status: "addressVieux", language: "English")
           BookingController.new.address(id, "vieux")
 
         when /Place Ville-Marie/i
-          user.update(status: "openingVilleMarie", language: "English")
+          user.update(status: "addressVilleMarie", language: "English")
           BookingController.new.address(id, "villeMarie")
 
         when /Quartier DIX30/i
-          user.update(status: "openingQuartier", language: "English")
+          user.update(status: "addressQuartier", language: "English")
           BookingController.new.address(id, "quartier")
 
         when /Mile-End/i
-          user.update(status: "openingMileEnd", language: "English")
+          user.update(status: "addressMileEnd", language: "English")
           BookingController.new.address(id, "mileEnd")
 
         when "Rudsak (Ahuntsic)"
-          user.update(status: "openingRudsak", language: "English")
+          user.update(status: "addressRudsak", language: "English")
           BookingController.new.address(id, "rudsak")
 
         when "Academy"
-          user.update(status: "openingAcademy", language: "English")
+          user.update(status: "addressAcademy", language: "English")
           BookingController.new.address(id, "academy")
         end
 

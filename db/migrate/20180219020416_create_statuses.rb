@@ -5,6 +5,7 @@ class CreateStatuses < ActiveRecord::Migration[5.0]
       t.string :sender
       t.string :language
       t.integer :count
+      t.string :tags, array: true, default: []
 
       t.timestamps
     end
