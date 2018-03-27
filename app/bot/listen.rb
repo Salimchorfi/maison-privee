@@ -1,19 +1,27 @@
 require "facebook/messenger"
 include Facebook::Messenger
 
-Satus = ['question', 'hours', 'address', 'book']
+$mapping = { :vieuxMontreal => "Vieux-Montréal",
+              :villeMarie => "Place Ville-Marie",
+              :mileEnd => "Mile-End",
+              :quartier => "Quartier DIX30",
+              :rudsak => "Rudsak",
+              :academy => "Academy"
+  }
 Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
 Bot.on :message do |message|
   id = message.sender["id"]
   first_name = BookingController.new.name(id)[0]
 
-  Status.where(:sender => id).update(tags: []) #reset tags
   cleanArray = TextController.new.cleanString(message.text)
-  TextController.new.tags(cleanArray, id)
+  TextController.new.tags(cleanArray, id) #create tags
 
-  if Status.where(:sender => id).exists?
-    user = Status.where(:sender => id)
+    if Status.where(:sender => id).exists?
+      user = Status.where(:sender => id)
+    else
+      Status.new(status: "enrollement", sender: id, language: "notDefine", count: 0).save
+    end
 
     if message.text == 'English' #defining language
       user.update(status: "defineLanguage", language: "English")
@@ -21,11 +29,14 @@ Bot.on :message do |message|
       user.update(status: "defineLanguage", language: "Français")
     end
 
-    language = Status.find_by(sender: id).language
+    start = TextController.new.timediff(id, 5)
+    language = CLD.detect_language(message.text)['name'.to_sym].capitalize
     status = Status.find_by(sender: id).status
-    tags = Status.find_by(sender: id).tags
+    location = Status.find_by(sender: id).location
+    intent = Status.find_by(sender: id).intent
+    count = Status.find_by(sender: id).count
 
-    if language == 'English' # -------------------------------------------
+      BookingController.new.introduction(id, first_name, language, count) if count == 0
 
       if status == 'question'
         message.typing_on
@@ -39,354 +50,127 @@ Bot.on :message do |message|
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
-      elsif status == 'book'
+      # Intent = booking, location and start -----
+      elsif location != "" and intent == "booking"
         message.typing_on
-        case message.text
 
-        when /Vieux-Montréal/i
-          user.update(status: "bookVieux", language: "English")
-          BookingController.new.tempLink(id, 'vieux', 'English', 'There you go 💈💺!')
+          BookingController.new.prensation(id, first_name, language) if start == true
+          if language == 'English'
+            BookingController.new.tempLink(id, location, language, 'There you go 💈💺!')
+          else
+            BookingController.new.tempLink(id, location, 'French', 'Voilà 💈💺!')
+          end
 
-        when /Place Ville-Marie/i
-          user.update(status: "bookVilleMarie", language: "English")
-          BookingController.new.tempLink(id, 'villeMarie', 'English', 'There you go 💈💺!')
+          Status.where(:sender => id).update(location: "")
+          Status.where(:sender => id).update(intent: "")
+          Status.where(:sender => id).update(count: count + 1)
 
-        when /Quartier DIX30/i
-          user.update(status: "bookQuartier", language: "English")
-          BookingController.new.tempLink(id, 'quartier', 'English', 'There you go 💈💺!')
-
-        when /Mile-End/i
-          user.update(status: "bookMileEnd", language: "English")
-          BookingController.new.tempLink(id, 'mileEnd', 'English', 'There you go 💈💺!')
-
-        when "Rudsak (Ahuntsic)"
-          user.update(status: "bookRudsak", language: "English")
-          BookingController.new.tempLink(id, 'rudsak', 'English', 'There you go 💈💺!')
-
-        when "Academy"
-          user.update(status: "bookAcademy", language: "English")
-          BookingController.new.tempLink(id, 'academy', 'English', 'There you go 💈💺!')
-        end
-
-      elsif status == 'hours'
+      # Intent = opening, location and start -----
+      elsif location != "" and intent == "opening"
         message.typing_on
-        case message.text
 
-        when /Vieux-Montréal/i
-          user.update(status: "openingVieux", language: "English")
-          BookingController.new.schedule(id, "vieux", 'English')
+          BookingController.new.prensation(id, first_name, language) if start == true
+          BookingController.new.schedule(id, location, language)
 
-        when /Place Ville-Marie/i
-          user.update(status: "openingVilleMarie", language: "English")
-          BookingController.new.schedule(id, "villeMarie", 'English')
+          Status.where(:sender => id).update(location: "")
+          Status.where(:sender => id).update(intent: "")
+          Status.where(:sender => id).update(count: count + 1)
 
-        when /Quartier DIX30/i
-          user.update(status: "openingQuartier", language: "English")
-          BookingController.new.schedule(id, "quartier", 'English')
-
-        when /Mile-End/i
-          user.update(status: "openingMileEnd", language: "English")
-          BookingController.new.schedule(id, "mileEnd", 'English')
-
-        when "Rudsak (Ahuntsic)"
-          user.update(status: "openingRudsak", language: "English")
-          BookingController.new.schedule(id, "rudsak", 'English')
-
-        when "Academy"
-          user.update(status: "openingAcademy", language: "English")
-          BookingController.new.schedule(id, "academy", 'English')
-        end
-
-      elsif status == 'address'
+      # lntent = location, location and start -----
+      elsif location != "" and intent == "location"
         message.typing_on
-        case message.text
 
-        when /Vieux-Montréal/i
-          user.update(status: "addressVieux", language: "English")
-          BookingController.new.address(id, "vieux")
+          BookingController.new.prensation(id, first_name, language) if start == true
+          if language == 'English'
+            BookingController.new.address(id, location, language, 'There you go 💈!')
+          else
+            BookingController.new.address(id, location, language, 'Voilà 💈!')
+          end
 
-        when /Place Ville-Marie/i
-          user.update(status: "addressVilleMarie", language: "English")
-          BookingController.new.address(id, "villeMarie")
+          Status.where(:sender => id).update(location: "")
+          Status.where(:sender => id).update(intent: "")
+          Status.where(:sender => id).update(count: count + 1)
 
-        when /Quartier DIX30/i
-          user.update(status: "addressQuartier", language: "English")
-          BookingController.new.address(id, "quartier")
-
-        when /Mile-End/i
-          user.update(status: "addressMileEnd", language: "English")
-          BookingController.new.address(id, "mileEnd")
-
-        when "Rudsak (Ahuntsic)"
-          user.update(status: "addressRudsak", language: "English")
-          BookingController.new.address(id, "rudsak")
-
-        when "Academy"
-          user.update(status: "addressAcademy", language: "English")
-          BookingController.new.address(id, "academy")
-        end
-
-      else
+      # No intent, location and start -----
+      elsif intent == "" and location != ""
         message.typing_on
-        case message.text #first degree response
 
-        when /Ask a question/i
-          user.update(status: "question", language: "English")
-          Status.find_by(sender: id).increment(:count, by = 1).save
-          message.reply(
-            text: "You may ask whatever you want, we'll get back to you as soon as possible"
-          )
+          BookingController.new.prensation(id, first_name, language) if start == true
+          BookingController.new.intent(id, location, language)
 
-        when /Book a chair!/i
-          user.update(status: "book", language: "English")
-          Status.find_by(sender: id).increment(:count, by = 1).save
-          BookingController.new.location(id, "All right! You need to first chose a location:")
+      # Intent, no location ---------------
+      elsif intent != "" and location == ""
+        message.typing_on
 
-        when /Find an address/i
-          user.update(status: "address", language: "English")
-          Status.find_by(sender: id).increment(:count, by = 1).save
+          BookingController.new.prensation(id, first_name, language) if start == true
           BookingController.new.location(id, "For which location?")
 
-        when /Vieux-Montréal/i
-          user.update(status: "vieuxMontreal", language: "English")
-          BookingController.new.tempLink(id, 'vieux', 'English', 'There you go 💈💺!')
+      elsif count > 0
 
-        when /Place Ville-Marie/i
-          user.update(status: "villeMarie", language: "English")
-          BookingController.new.tempLink(id, 'villeMarie', 'English', 'There you go 💈💺!')
+        if language == 'English'
 
-        when /Quartier DIX30/i
-          user.update(status: "quartier", language: "English")
-          BookingController.new.tempLink(id, 'quartier', 'English', 'There you go 💈💺!')
+            BookingController.new.prensation(id, first_name, language) if start == true
+            message.reply(
+            text: "I've been trained to help you with the options listed below!",
+            quick_replies: [
+              {
+                content_type: 'text',
+                title: 'Book a chair!',
+                payload: 'HARMLESS'
+              },
+              {
+                content_type: 'text',
+                title: 'Opening hours',
+                payload: 'HARMLESS'
+              },
+              {
+                content_type: 'text',
+                title: 'Find an address',
+                payload: 'HARMLESS'
+              },
+              {
+                content_type: 'text',
+                title: 'Ask a question',
+                payload: 'HARMLESS'
+              }
+            ])
 
-        when /Mile-End/i
-          user.update(status: "mileEnd", language: "English")
-          BookingController.new.tempLink(id, 'mileEnd', 'English', 'There you go 💈💺!')
+        elsif language == 'French'
 
-        when "Rudsak (Ahuntsic)"
-          user.update(status: "rudsak", language: "English")
-          BookingController.new.tempLink(id, 'rudsak', 'English', 'There you go 💈💺!')
-
-        when "Academy"
-          user.update(status: "academy", language: "English")
-          BookingController.new.tempLink(id, 'academy', 'English', 'There you go 💈💺!')
-
-        when /Opening hours?/i
-          user.update(status: "hours", language: "English")
-          Status.find_by(sender: id).increment(:count, by = 1).save
-          BookingController.new.location(id, "What location are you looking for?")
-
-
-        else #main menu
+          BookingController.new.prensation(id, first_name, language) if start == true
           message.reply(
-          text: "Hi #{first_name}, what are you looking for?",
-          quick_replies: [
-            {
-              content_type: 'text',
-              title: 'Book a chair!',
-              payload: 'HARMLESS'
-            },
-            {
-              content_type: 'text',
-              title: 'Opening hours?',
-              payload: 'HARMLESS'
-            },
-            {
-              content_type: 'text',
-              title: 'Find an address',
-              payload: 'HARMLESS'
-            },
-            {
-              content_type: 'text',
-              title: 'Ask a question',
-              payload: 'HARMLESS'
-            }
-          ]
-          )
+            text: "J'ai été entrainé pour t'aider avec les options ci-dessous!",
+            quick_replies: [
+              {
+                content_type: 'text',
+                title: 'Réserver une chaise',
+                payload: 'HARMLESS'
+              },
+              {
+                content_type: 'text',
+                title: "Heure d'ouverture",
+                payload: 'HARMLESS'
+              },
+              {
+                content_type: 'text',
+                title: 'Trouver une adresse',
+                payload: 'HARMLESS'
+              },
+              {
+                content_type: 'text',
+                title: 'Poser une question',
+                payload: 'HARMLESS'
+              }
+            ])
+
+        else
+
+          message.reply(
+            text: "Sorry, I don't speak #{language.capitalize}")
 
         end
 
       end
-
-    else #french ---------------------------------------------------------
-
-      if status == 'question'
-        message.typing_on
-        user.update(status: "questionDelivered", language: "Français")
-        Bot.deliver({
-          recipient: {
-            id: id #to be validated
-          },
-          message: {
-            text: message.text
-          }
-        }, access_token: ENV['ACCESS_TOKEN'])
-
-      elsif status == 'opening'
-        message.typing_on
-        user.update(status: "hours", language: "Français")
-        BookingController.new.location(id, "Pour quel emplacement?")
-
-      elsif status == 'hours'
-        message.typing_on
-        case message.text
-
-        when /Vieux-Montréal/i
-          user.update(status: "openingVieux", language: "Français")
-          BookingController.new.schedule(id, "vieux", 'Français')
-
-        when /Place Ville-Marie/i
-          user.update(status: "openingVilleMarie", language: "Français")
-          BookingController.new.schedule(id, "villeMarie", 'Français')
-
-        when /Quartier DIX30/i
-          user.update(status: "openingQuartier", language: "Français")
-          BookingController.new.schedule(id, "quartier", 'Français')
-
-        when /Mile-End/i
-          user.update(status: "openingMileEnd", language: "Français")
-          BookingController.new.schedule(id, "mileEnd", 'Français')
-
-        when "Rudsak (Ahuntsic)"
-          user.update(status: "openingRudsak", language: "Français")
-          BookingController.new.schedule(id, "rudsak", 'Français')
-
-        when "Academy"
-          user.update(status: "openingAcademy", language: "Français")
-          BookingController.new.schedule(id, "academy", 'Français')
-        end
-
-      elsif status == 'address'
-        message.typing_on
-        case message.text
-
-        when /Vieux-Montréal/i
-          user.update(status: "openingVieux", language: "Français")
-          BookingController.new.address(id, "vieux")
-
-        when /Place Ville-Marie/i
-          user.update(status: "openingVilleMarie", language: "Français")
-          BookingController.new.address(id, "villeMarie")
-
-        when /Quartier DIX30/i
-          user.update(status: "openingQuartier", language: "Français")
-          BookingController.new.address(id, "quartier")
-
-        when /Mile-End/i
-          user.update(status: "openingMileEnd", language: "Français")
-          BookingController.new.address(id, "mileEnd")
-
-        when "Rudsak (Ahuntsic)"
-          user.update(status: "openingRudsak", language: "Français")
-          BookingController.new.address(id, "rudsak")
-
-        when "Academy"
-          user.update(status: "openingAcademy", language: "Français")
-          BookingController.new.address(id, "academy")
-        end
-
-      else
-        message.typing_on
-        case message.text #first degree response
-
-        when /Poser une question/i
-          user.update(status: "question", language: "Français")
-          Status.find_by(sender: id).increment(:count, by = 1).save
-          message.reply(
-            text: 'Poses ta question, nous te reviendrons dès que possible'
-          )
-
-        when /Réserver une chaise!/i
-          user.update(status: "book", language: "Français")
-          Status.find_by(sender: id).increment(:count, by = 1).save
-          BookingController.new.location(id, "Parfait! Tu dois choisir un emplacement:")
-
-        when /Trouver une adresse/i
-          user.update(status: "address", language: "Français")
-          Status.find_by(sender: id).increment(:count, by = 1).save
-          BookingController.new.location(id, "Pour quel emplacement?")
-
-        when /Vieux-Montréal/i
-          user.update(status: "vieuxMontreal", language: "Français")
-          BookingController.new.tempLink(id, 'vieux', 'Français', 'Voilà! 💈💺')
-
-        when /Place Ville-Marie/i
-          user.update(status: "villeMarie", language: "Français")
-          BookingController.new.tempLink(id, 'villeMarie', 'Français', 'Voilà! 💈💺')
-
-        when /Quartier DIX30/i
-          user.update(status: "quartier", language: "Français")
-          BookingController.new.tempLink(id, 'quartier', 'Français', 'Voilà! 💈💺')
-
-        when /Mile-End/i
-          user.update(status: "mileEnd", language: "Français")
-          BookingController.new.tempLink(id, 'mileEnd', 'Français', 'Voilà! 💈💺')
-
-        when "Rudsak (Ahuntsic)"
-          user.update(status: "rudsak", language: "Français")
-          BookingController.new.tempLink(id, 'rudsak', 'Français', 'Voilà! 💈💺')
-
-        when "Academy"
-          user.update(status: "academy", language: "Français")
-          BookingController.new.tempLink(id, 'academy', 'Français', 'Voilà! 💈💺                                                                                                                                                                                                                                                                                                                                                                                                                          ')
-
-        when /Heure d'ouverture?/i
-          user.update(status: "hours", language: "Français")
-          Status.find_by(sender: id).increment(:count, by = 1).save
-          BookingController.new.location(id, "Pour quel emplacement?")
-
-
-        else #main menu
-          message.reply(
-          text: "Salut #{first_name}, qu'est ce que tu recherches?",
-          quick_replies: [
-            {
-              content_type: 'text',
-              title: 'Réserver une chaise!',
-              payload: 'HARMLESS'
-            },
-            {
-              content_type: 'text',
-              title: "Heure d'ouverture?",
-              payload: 'HARMLESS'
-            },
-            {
-              content_type: 'text',
-              title: 'Trouver une adresse',
-              payload: 'HARMLESS'
-            },
-            {
-              content_type: 'text',
-              title: 'Poser une question',
-              payload: 'HARMLESS'
-            }
-          ]
-          )
-
-        end
-
-      end
-
-    end
-
-  else #language menu ----------------------------------------------------
-    Status.new(status: "enrollement", sender: id, language: "notDefine", count: 0).save
-    message.reply(
-        text: 'Welcome to Maison Privée 🏠💈',
-        quick_replies: [
-          {
-            content_type: 'text',
-            title: 'Français',
-            payload: 'HARMLESS'
-          },
-          {
-            content_type: 'text',
-            title: 'English',
-            payload: 'HARMLESS'
-          }
-        ]
-      )
-  end
 
 end
 

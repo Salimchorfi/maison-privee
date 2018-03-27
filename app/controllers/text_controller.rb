@@ -10,61 +10,42 @@ class TextController < ApplicationController
   end
 
   def tags(arr, id)
-    booking  = ['reserver', 'reserve', 'book', 'rendez', 'appointement', 'reservation', 'booking']
-    hours = ['heure', 'hour', 'hours', 'ouverture', 'opening']
-    address = ['adresse', 'emplacement', 'location', 'address']
+    booking  = ['reserver', 'reserve', 'book', 'rendez', 'appointement', 'reservation', 'booking', 'couper', 'cut', 'coupe']
+    hours = ['heure', 'hour', 'hours', 'ouverture', 'opening', 'time']
+    address = ['adresse', 'emplacement', 'location', 'address', 'where', 'ou']
 
     # Location TAG ---------
-    if arr.include?('vieux')
-      tag = Status.find_by(sender: id).tags << "vieuxMontreal"
-      Status.where(:sender => id).update(tags: tag)
+    if (arr & ["vieux", "old", "port"]).present?
+      Status.where(:sender => id).update(location: "vieuxMontreal")
     elsif arr.include?('marie')
-      tag = Status.find_by(sender: id).tags << "villeMarie"
-      Status.where(:sender => id).update(tags: tag)
+      Status.where(:sender => id).update(location: "villeMarie")
     elsif arr.include?('mile')
-      tag = Status.find_by(sender: id).tags << "mileEnd"
-      Status.where(:sender => id).update(tags: tag)
-    elsif arr.include?('dix30') or arr.include?('quartier')
-      tag = Status.find_by(sender: id).tags << "DIX30"
-      Status.where(:sender => id).update(tags: tag)
+      Status.where(:sender => id).update(location: "mileEnd")
+    elsif arr.include?('dix30') or arr.include?('quartier') or arr.include?('DIX30')
+      Status.where(:sender => id).update(location: "quartier")
     elsif arr.include?('rudsak')
-      tag = Status.find_by(sender: id).tags << "rudsak"
-      Status.where(:sender => id).update(tags: tag)
+      Status.where(:sender => id).update(location: "rudsak")
     elsif arr.include?('academy')
-      tag = Status.find_by(sender: id).tags << "academy"
-      Status.where(:sender => id).update(tags: tag)
+      Status.where(:sender => id).update(location: "academy")
     end
 
     # Intent TAG
     if (arr & booking).empty? == false
-      tag = Status.find_by(sender: id).tags << "booking"
-      Status.where(:sender => id).update(tags: tag)
+      Status.where(:sender => id).update(intent: "booking")
     elsif (arr & hours).empty? == false
-      tag = Status.find_by(sender: id).tags << "opening"
-      Status.where(:sender => id).update(tags: tag)
+      Status.where(:sender => id).update(intent: "opening")
     elsif (arr & address).empty? == false
-      tag = Status.find_by(sender: id).tags << "location"
-      Status.where(:sender => id).update(tags: tag)
+      Status.where(:sender => id).update(intent: "location")
     end
 
   end
 
-  def hashValid
-    # mapping = { :vieux => :method_1,
-    #             :vieux => :method_1,
-    #             :vieux => :method_1,
-    #             :vieux => :method_1,
-    #             :vieux => :method_1,
-    #             :vieux => :method_1,
-    #             :vieux => :method_1,
-    #             :vieux => :method_1,
-    #             :vieux => :method_1,
-    #             :vieux => :method_1,
-    #             :vieux => :method_1
-    # }
-
-
-
+  def timediff(id, diff)
+    if ((Time.now - Status.find_by(sender: id).updated_at) / 60) < diff
+      return false
+    else
+      return true
+    end
   end
 
 

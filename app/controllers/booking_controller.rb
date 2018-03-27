@@ -5,6 +5,118 @@ require 'open-uri'
 require 'json'
 include Facebook::Messenger
 
+  def introduction(id, first_name, language, count)
+    Status.where(:sender => id).update(count: count + 1)
+    if language == "English"
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+            Bot.deliver({
+              recipient: {
+                id: id
+              },
+              message: {
+                text: "Welcome to Maison Privée 🏠💈, I've been trained to help you with booking, finding a locations and opening hours!",
+              }
+            }, access_token: ENV['ACCESS_TOKEN'])
+    else
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+            Bot.deliver({
+              recipient: {
+                id: id
+              },
+              message: {
+                text: "Bienvenue chez Maison Privée 🏠💈, j'ai été entrainé pour t'aider à réserver, trouver un salon ou les heures d'ouvertures!",
+              }
+            }, access_token: ENV['ACCESS_TOKEN'])
+    end
+  end
+
+  def intent(id, location, language)
+    if language == "English"
+
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "#{$mapping[location.to_sym]} is a great choice, what are you looking for?",
+          quick_replies: [
+            {
+              content_type: 'text',
+              title: 'Booking a chair',
+              payload: 'Haircut'
+            },
+            {
+              content_type: 'text',
+              title: 'Opening hours',
+              payload: 'Lineup'
+            },
+            {
+              content_type: 'text',
+              title: 'Finding an address',
+              payload: 'Shave'
+            }
+          ]
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+    else
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "#{$mapping[location.to_sym]} est un excellent choix, qu'est ce que tu recherches?",
+          quick_replies: [
+            {
+              content_type: 'text',
+              title: 'Réserver une chaise',
+              payload: 'Haircut'
+            },
+            {
+              content_type: 'text',
+              title: "Heure d'ouverture",
+              payload: 'Lineup'
+            },
+            {
+              content_type: 'text',
+              title: 'Trouver une adresse',
+              payload: 'Shave'
+            }
+          ]
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+    end
+
+  end
+
+  def prensation(id, first_name, language)
+
+    if language == "English"
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+            Bot.deliver({
+              recipient: {
+                id: id
+              },
+              message: {
+                text: "Greetings #{first_name}",
+              }
+            }, access_token: ENV['ACCESS_TOKEN'])
+    else
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+            Bot.deliver({
+              recipient: {
+                id: id
+              },
+              message: {
+                text: "Salut #{first_name}",
+              }
+            }, access_token: ENV['ACCESS_TOKEN'])
+    end
+  end
+
   def name(id)
     url = "https://graph.facebook.com/v2.6/#{id}?fields=first_name,last_name,profile_pic&access_token=#{ENV["ACCESS_TOKEN"]}"
     user_serialized = open(url).read
@@ -234,7 +346,7 @@ include Facebook::Messenger
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
-      elsif language == 'Français'
+      else
 
         Bot.deliver({
           recipient: {
@@ -311,7 +423,7 @@ include Facebook::Messenger
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
-      elsif language == 'Français'
+      else
 
         Bot.deliver({
           recipient: {
@@ -355,7 +467,7 @@ include Facebook::Messenger
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
-      elsif language == 'Français'
+      else
 
         Bot.deliver({
           recipient: {
@@ -399,7 +511,7 @@ include Facebook::Messenger
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
-      elsif language == 'Français'
+      else
 
         Bot.deliver({
           recipient: {
@@ -461,7 +573,7 @@ include Facebook::Messenger
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
-      elsif language == 'Français'
+      else
 
         Bot.deliver({
         recipient: {
@@ -505,7 +617,7 @@ include Facebook::Messenger
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
-      elsif language == 'Français'
+      else
 
         Bot.deliver({
           recipient: {
@@ -540,7 +652,7 @@ include Facebook::Messenger
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
-      elsif language == 'Français'
+      else
 
         Bot.deliver({
           recipient: {
@@ -566,12 +678,22 @@ include Facebook::Messenger
 
   end
 
-  def address(id, location)
+  def address(id, location, language, text)
 
     case location
 
     when /vieux/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: text,
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
       Bot.deliver({
         recipient: {
           id: id
@@ -583,6 +705,16 @@ include Facebook::Messenger
 
       when /villeMarie/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: text,
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
       Bot.deliver({
         recipient: {
           id: id
@@ -594,6 +726,16 @@ include Facebook::Messenger
 
       when /quartier/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: text,
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
       Bot.deliver({
         recipient: {
           id: id
@@ -605,6 +747,16 @@ include Facebook::Messenger
 
       when /mileEnd/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: text,
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
       Bot.deliver({
         recipient: {
           id: id
@@ -616,6 +768,16 @@ include Facebook::Messenger
 
       when /rudsak/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: text,
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
       Bot.deliver({
         recipient: {
           id: id
@@ -628,14 +790,23 @@ include Facebook::Messenger
       when /academy/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
-        Bot.deliver({
-          recipient: {
-            id: id
-          },
-          message: {
-            text: "https://goo.gl/maps/EskX8ewRn9w 🌎",
-          }
-        }, access_token: ENV['ACCESS_TOKEN'])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: text,
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://goo.gl/maps/EskX8ewRn9w 🌎",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
 
       end
   end

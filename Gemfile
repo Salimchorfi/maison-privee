@@ -35,6 +35,8 @@ gem 'faraday'
 gem "koala"
 #i18n
 gem "i18n"
+#language detection
+gem "cld"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
