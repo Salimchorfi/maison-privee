@@ -65,6 +65,8 @@ Bot.on :message do |message|
           Status.where(:sender => id).update(intent: "")
           Status.where(:sender => id).update(count: count + 1)
 
+          BookingController.new.updateLog(id, location)
+
       # Intent = opening, location and start -----
       elsif location != "" and intent == "opening"
         message.typing_on

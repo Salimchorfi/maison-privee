@@ -5,6 +5,13 @@ require 'open-uri'
 require 'json'
 include Facebook::Messenger
 
+  def updateLog(id, location)
+    log = Status.find_by(sender: id).log
+    res = log[location].to_i + 1
+    log[location] = res
+    Status.where(:sender => id).update(log: log)
+  end
+
   def introduction(id, first_name, language, count)
     Status.where(:sender => id).update(count: count + 1)
     if language == "English"

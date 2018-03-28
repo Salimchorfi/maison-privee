@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20180219020416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "artists", force: :cascade do |t|
     t.string   "name"
@@ -46,8 +47,9 @@ ActiveRecord::Schema.define(version: 20180219020416) do
     t.integer  "count"
     t.string   "location"
     t.string   "intent"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.hstore   "log",        default: {"rudsak"=>"0", "academy"=>"0", "mileEnd"=>"0", "quartier"=>"0", "villeMarie"=>"0", "vieuxMontreal"=>"0"}, null: false
+    t.datetime "created_at",                                                                                                                     null: false
+    t.datetime "updated_at",                                                                                                                     null: false
   end
 
   add_foreign_key "artists", "locations"

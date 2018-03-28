@@ -11,7 +11,7 @@ class TextController < ApplicationController
 
   def tags(arr, id)
     booking  = ['reserver', 'reserve', 'book', 'rendez', 'appointement', 'reservation', 'booking', 'couper', 'cut', 'coupe']
-    hours = ['heure', 'hour', 'hours', 'ouverture', 'opening', 'time']
+    hours = ['heure', 'hour', 'hours', 'ouverture', 'opening', 'time', 'close', 'fermeture', 'fermer', 'ferme', 'fermez', 'closing', 'open']
     address = ['adresse', 'emplacement', 'location', 'address', 'where', 'ou']
 
     # Location TAG ---------
