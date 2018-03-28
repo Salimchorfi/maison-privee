@@ -23,12 +23,6 @@ Bot.on :message do |message|
       Status.new(status: "enrollement", sender: id, language: "notDefine", count: 0).save
     end
 
-    if message.text == 'English' #defining language
-      user.update(status: "defineLanguage", language: "English")
-    elsif message.text == 'Français'
-      user.update(status: "defineLanguage", language: "Français")
-    end
-
     start = TextController.new.timediff(id, 5)
     language = CLD.detect_language(message.text)['name'.to_sym].capitalize
     status = Status.find_by(sender: id).status
