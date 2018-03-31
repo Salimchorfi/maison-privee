@@ -137,7 +137,7 @@ Bot.on :message do |message|
               }
             ])
 
-        elsif language == 'French' or message.text = 'Salut'
+        elsif language == 'French' or message.text == 'Salut'
 
           BookingController.new.prensation(id, first_name, language) if start == true
           message.reply(
