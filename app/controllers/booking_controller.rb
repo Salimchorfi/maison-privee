@@ -131,7 +131,7 @@ include Facebook::Messenger
     return [user["first_name"], user["last_name"]]
   end
 
-  def location(id, text, language)
+  def location(id, text)
     Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
     Bot.deliver({
       recipient: {
