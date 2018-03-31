@@ -16,6 +16,7 @@ Bot.on :message do |message|
 
   cleanArray = TextController.new.cleanString(message.text)
   TextController.new.tags(cleanArray, id) #create tags
+  TextController.new.greeting(cleanArray, id) #create status
 
     if Status.where(:sender => id).exists?
       user = Status.where(:sender => id)
@@ -48,7 +49,7 @@ Bot.on :message do |message|
       elsif location != "" and intent == "booking"
         message.typing_on
 
-          BookingController.new.prensation(id, first_name, language) if start == true
+          BookingController.new.prensation(id, first_name, language) if start == true or status == "greetings"
           if language == 'English'
             BookingController.new.tempLink(id, location, language, 'There you go 💈💺!')
           else
@@ -67,7 +68,7 @@ Bot.on :message do |message|
 
           language = 'English' if message.text == 'Opening hours'
 
-          BookingController.new.prensation(id, first_name, language) if start == true
+          BookingController.new.prensation(id, first_name, language) if start == true or status == "greetings"
           BookingController.new.schedule(id, location, language)
 
           Status.where(:sender => id).update(location: "")
@@ -78,7 +79,7 @@ Bot.on :message do |message|
       elsif location != "" and intent == "location"
         message.typing_on
 
-          BookingController.new.prensation(id, first_name, language) if start == true
+          BookingController.new.prensation(id, first_name, language) if start == true or status == "greetings"
           if language == 'English'
             BookingController.new.address(id, location, language, 'There you go 💈!')
           else
@@ -93,14 +94,14 @@ Bot.on :message do |message|
       elsif intent == "" and location != ""
         message.typing_on
 
-          BookingController.new.prensation(id, first_name, language) if start == true
+          BookingController.new.prensation(id, first_name, language) if start == true or status == "greetings"
           BookingController.new.intent(id, location, language)
 
       # Intent, no location ---------------
       elsif intent != "" and location == ""
         message.typing_on
 
-          BookingController.new.prensation(id, first_name, language) if start == true
+          BookingController.new.prensation(id, first_name, language) if start == true or status == "greetings"
           if language == 'English'
             BookingController.new.location(id, "For which location?")
           else
@@ -111,7 +112,7 @@ Bot.on :message do |message|
 
         if language == 'English'
 
-            BookingController.new.prensation(id, first_name, language) if start == true
+            BookingController.new.prensation(id, first_name, language) if start == true or status == "greetings"
             message.reply(
             text: "I've been trained to help you with the options listed below!",
             quick_replies: [
@@ -137,9 +138,9 @@ Bot.on :message do |message|
               }
             ])
 
-        elsif language == 'French' or message.text == 'Salut'
+        elsif language == 'French' or status == "greetings"
 
-          BookingController.new.prensation(id, first_name, language) if start == true
+          BookingController.new.prensation(id, first_name, language) if start == true or status == "greetings"
           message.reply(
             text: "J'ai été entrainé pour t'aider avec les options ci-dessous!",
             quick_replies: [

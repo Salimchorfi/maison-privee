@@ -11,7 +11,7 @@ class TextController < ApplicationController
 
   def tags(arr, id)
     booking  = ['reserver', 'reserve', 'book', 'rendez', 'appointement', 'reservation', 'booking', 'couper', 'cut', 'coupe', 'booker']
-    hours = ['heure', 'hour', 'hours', 'ouverture', 'opening', 'time', 'close', 'fermeture', 'fermer', 'ferme', 'fermez', 'closing', 'open']
+    hours = ['heure', 'hour', 'hours', 'ouverture', 'opening', 'time', 'close', 'fermeture', 'fermer', 'ferme', 'fermez', 'closing', 'open', 'horaire', "lhoraire"]
     address = ['adresse', 'emplacement', 'location', 'address', 'where', 'ou']
 
     # Location TAG ---------
@@ -45,6 +45,16 @@ class TextController < ApplicationController
       return false
     else
       return true
+    end
+  end
+
+  def greeting(arr, id)
+    greetings = ['salut', 'bonjour', 'bonsoir', 'hello', 'hi', 'hey']
+
+    if (arr & greetings).empty? == false
+      Status.where(:sender => id).update(status: "greetings")
+    else
+      Status.where(:sender => id).update(status: "conversation")
     end
   end
 
