@@ -65,6 +65,8 @@ Bot.on :message do |message|
       elsif location != "" and intent == "opening"
         message.typing_on
 
+          language = 'English' if message.text == 'Opening hours'
+
           BookingController.new.prensation(id, first_name, language) if start == true
           BookingController.new.schedule(id, location, language)
 
@@ -99,7 +101,11 @@ Bot.on :message do |message|
         message.typing_on
 
           BookingController.new.prensation(id, first_name, language) if start == true
-          BookingController.new.location(id, "For which location?")
+          if language == 'English'
+            BookingController.new.location(id, "For which location?")
+          else
+            BookingController.new.location(id, "Pour quel emplacement?")
+          end
 
       elsif count > 0
 
@@ -131,7 +137,7 @@ Bot.on :message do |message|
               }
             ])
 
-        elsif language == 'French'
+        elsif language == 'French' or message.text = 'Salut'
 
           BookingController.new.prensation(id, first_name, language) if start == true
           message.reply(
