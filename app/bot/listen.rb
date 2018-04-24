@@ -7,10 +7,25 @@ $mapping = { :vieuxMontreal => "Vieux-Montréal",
               :quartier => "Quartier DIX30",
               :rudsak => "Rudsak",
               :academy => "Academy"
-  }
+            }
+
+Facebook::Messenger::Profile.set({
+  greeting: [
+    {
+      locale: 'default',
+      text: 'Welcome to Maison privée 🏠💈'
+    },
+    {
+      locale: 'fr_FR',
+      text: 'Bienvenue chez Maison Privée 🏠💈'
+    }
+  ]
+}, access_token: ENV['ACCESS_TOKEN'])
+
 Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
 Bot.on :message do |message|
+  puts message.text #helps for debug
   id = message.sender["id"]
   first_name = BookingController.new.name(id)[0]
 
