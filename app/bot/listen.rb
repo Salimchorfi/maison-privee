@@ -9,18 +9,24 @@ $mapping = { :vieuxMontreal => "Vieux-Montréal",
               :academy => "Academy"
             }
 
-Facebook::Messenger::Profile.set({
-  greeting: [
-    {
-      locale: 'default',
-      text: 'Welcome to Maison privée 🏠💈'
-    },
-    {
-      locale: 'fr_FR',
-      text: 'Bienvenue chez Maison Privée 🏠💈'
-    }
-  ]
+# Facebook::Messenger::Profile.set({
+#   greeting: [
+#     {
+#       locale: 'default',
+#       text: 'Welcome to Maison privée 🏠💈'
+#     },
+#     {
+#       locale: 'fr_FR',
+#       text: 'Bienvenue chez Maison Privée 🏠💈'
+#     }
+#   ]
 
+#   get_started: {
+#     payload: 'GET_STARTED_PAYLOAD'
+#   }
+# }, access_token: ENV['ACCESS_TOKEN'])
+
+Facebook::Messenger::Profile.set({
   get_started: {
     payload: 'GET_STARTED_PAYLOAD'
   }
