@@ -238,7 +238,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "https://maisonprivee.appointy.com/default.aspx?_ga=1.219348953.1993957800.1476457930",
+          text: "https://maisonprivee.resurva.com/book",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
