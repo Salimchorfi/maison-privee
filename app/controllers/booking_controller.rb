@@ -169,6 +169,11 @@ include Facebook::Messenger
             content_type: 'text',
             title: 'Academy',
             payload: 'Academy'
+          },
+          {
+            content_type: 'text',
+            title: 'Saint-Hyacinthe',
+            payload: 'saintHyacinthe'
           }
         ]
       }
@@ -258,7 +263,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "https://maisonpriveepvm.appointy.com/default.aspx",
+          text: "https://maisonprivetunnelplaceville-marie.resurva.com/book",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -278,7 +283,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "https://maisonpriveedix30.appointy.com/default.aspx",
+          text: "https://maisonpriveequartierdix30.resurva.com/book",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -298,7 +303,7 @@ include Facebook::Messenger
           id: id
         },
         message: {
-          text: "https://maisonpriveemileend.appointy.com/default.aspx",
+          text: "https://maisonpriveemile-end.resurva.com/book",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -319,6 +324,26 @@ include Facebook::Messenger
         },
         message: {
           text: "https://maisonpriveerudsak.appointy.com",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /saintHyacinthe/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: text,
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://maisonpriveesaint-hyacinthe.resurva.com/book",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -389,7 +414,7 @@ include Facebook::Messenger
             id: id
           },
           message: {
-            text: "https://maisonpriveeacademy.appointy.com",
+            text: "https://maisonpriveepointesaint-charles.resurva.com/book",
           }
         }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -637,6 +662,32 @@ include Facebook::Messenger
 
       end
 
+    when /saintHyacinthe/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+      if language == 'English'
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Tuesday to Saturday: 10:00 AM - 6:00 PM 🕓",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      else
+
+        Bot.deliver({
+          recipient: {
+            id: id
+          },
+          message: {
+            text: "Mardi à Samedi: 10:00 AM - 6:00 PM 🕓",
+          }
+        }, access_token: ENV['ACCESS_TOKEN'])
+
+      end
+
     when /academy/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
       if language == 'English'
@@ -774,6 +825,27 @@ include Facebook::Messenger
       }, access_token: ENV['ACCESS_TOKEN'])
 
       when /rudsak/i
+      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: text,
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      Bot.deliver({
+        recipient: {
+          id: id
+        },
+        message: {
+          text: "https://goo.gl/maps/kDevaapuBaw 🌎",
+        }
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      when /saintHyacinthe/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
       Bot.deliver({

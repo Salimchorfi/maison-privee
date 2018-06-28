@@ -21,12 +21,14 @@ class TextController < ApplicationController
       Status.where(:sender => id).update(location: "villeMarie")
     elsif arr.include?('mile')
       Status.where(:sender => id).update(location: "mileEnd")
-    elsif arr.include?('dix30') or arr.include?('quartier') or arr.include?('DIX30')
+    elsif arr.include? (arr & ["dix30", "quartier", "DIX30"]).present?
       Status.where(:sender => id).update(location: "quartier")
     elsif arr.include?('rudsak')
       Status.where(:sender => id).update(location: "rudsak")
     elsif arr.include?('academy')
       Status.where(:sender => id).update(location: "academy")
+    elsif arr.include?('hyacinthe')
+      Status.where(:sender => id).update(location: "saintHyacinthe")
     end
 
     # Intent TAG

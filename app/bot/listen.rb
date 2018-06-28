@@ -1,12 +1,13 @@
 require "facebook/messenger"
 include Facebook::Messenger
 
-$mapping = { :vieuxMontreal => "Vieux-Montréal",
+$mapping = {  :vieuxMontreal => "Vieux-Montréal",
               :villeMarie => "Place Ville-Marie",
               :mileEnd => "Mile-End",
               :quartier => "Quartier DIX30",
               :rudsak => "Rudsak",
-              :academy => "Academy"
+              :academy => "Academy",
+              :saintHyacinthe => "Saint-Hyacinthe"
             }
 
 # Facebook::Messenger::Profile.set({
