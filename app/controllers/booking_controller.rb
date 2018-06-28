@@ -162,11 +162,6 @@ include Facebook::Messenger
           },
           {
             content_type: 'text',
-            title: 'Rudsak (Ahuntsic)',
-            payload: 'Rudsak'
-          },
-          {
-            content_type: 'text',
             title: 'Academy',
             payload: 'Academy'
           },
@@ -304,26 +299,6 @@ include Facebook::Messenger
         },
         message: {
           text: "https://maisonpriveemile-end.resurva.com/book",
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
-
-      when /rudsak/i
-      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: text,
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
-
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: "https://maisonpriveerudsak.appointy.com",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
@@ -636,32 +611,6 @@ include Facebook::Messenger
 
     end
 
-    when /rudsak/i
-      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
-      if language == 'English'
-
-        Bot.deliver({
-          recipient: {
-            id: id
-          },
-          message: {
-            text: "Tuesday to Saturday: 10:00 AM - 6:00 PM 🕓",
-          }
-        }, access_token: ENV['ACCESS_TOKEN'])
-
-      else
-
-        Bot.deliver({
-          recipient: {
-            id: id
-          },
-          message: {
-            text: "Mardi à Samedi: 10:00 AM - 6:00 PM 🕓",
-          }
-        }, access_token: ENV['ACCESS_TOKEN'])
-
-      end
-
     when /saintHyacinthe/i
       Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
       if language == 'English'
@@ -821,27 +770,6 @@ include Facebook::Messenger
         },
         message: {
           text: "https://goo.gl/maps/Lce9UWgHu4x 🌎",
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
-
-      when /rudsak/i
-      Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
-
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: text,
-        }
-      }, access_token: ENV['ACCESS_TOKEN'])
-
-      Bot.deliver({
-        recipient: {
-          id: id
-        },
-        message: {
-          text: "https://goo.gl/maps/kDevaapuBaw 🌎",
         }
       }, access_token: ENV['ACCESS_TOKEN'])
 
